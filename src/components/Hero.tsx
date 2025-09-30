@@ -1,88 +1,13 @@
 'use client'
 import React from 'react'
-import { motion, useMotionValue, useTransform, useInView } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { Button, GhostButton } from '@/components/ui/Button'
 import { enrollClick } from '@/lib/track'
 import { price, pitch } from '@/data/essentials'
-import { ArrowRight, Shield, Clock, Users, Sparkles, Heart, Stethoscope, Phone, Video, MessageSquare, Zap, Star, Award, TrendingUp, Globe, Activity, UserCheck } from 'lucide-react'
-
-const FloatingElement = ({ children, delay = 0, duration = 4 }: { children: React.ReactNode, delay?: number, duration?: number }) => (
-  <motion.div
-    animate={{ 
-      y: [0, -20, 0],
-      rotate: [0, 5, -5, 0],
-      scale: [1, 1.05, 1]
-    }}
-    transition={{ 
-      duration, 
-      repeat: Infinity, 
-      ease: "easeInOut",
-      delay 
-    }}
-  >
-    {children}
-  </motion.div>
-)
-
-const InteractiveServiceCard = ({ icon: Icon, title, description, color, delay }: {
-  icon: any, title: string, description: string, color: string, delay: number
-}) => (
-  <motion.div
-    initial={{ opacity: 0, scale: 0.8, y: 50 }}
-    animate={{ opacity: 1, scale: 1, y: 0 }}
-    transition={{ 
-      type: "spring", 
-      stiffness: 100, 
-      damping: 15,
-      delay: delay + 1.2 
-    }}
-    whileHover={{ 
-      scale: 1.05, 
-      y: -5,
-      transition: { duration: 0.2 }
-    }}
-    className="glass border border-white/30 rounded-2xl p-6 backdrop-blur-xl shadow-xl hover:shadow-2xl transition-all duration-300 group cursor-pointer"
-  >
-    <motion.div
-      whileHover={{ rotate: 360, scale: 1.1 }}
-      transition={{ duration: 0.6 }}
-      className={`w-12 h-12 rounded-2xl bg-gradient-to-r ${color} shadow-lg flex items-center justify-center mb-4 group-hover:shadow-xl transition-shadow duration-300`}
-    >
-      <Icon className="w-6 h-6 text-white" />
-    </motion.div>
-    <h4 className="font-bold text-slate-900 mb-2 group-hover:text-brand-700 transition-colors">
-      {title}
-    </h4>
-    <p className="text-sm text-slate-600 leading-relaxed">
-      {description}
-    </p>
-    <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl pointer-events-none" />
-  </motion.div>
-)
+import { ArrowRight, Shield, Clock, Users, Sparkles, Zap, Star, Globe } from 'lucide-react'
 
 export function Hero() {
   const href = 'https://www.1enrollment.com/order/checkout.cfm?id=768413&pdid=42463'
-  
-  const services = [
-    {
-      icon: Stethoscope,
-      title: "Virtual Care",
-      description: "24/7 urgent care & primary care",
-      color: "from-blue-500 to-cyan-500"
-    },
-    {
-      icon: Heart,
-      title: "Mental Health",
-      description: "Behavioral health support",
-      color: "from-red-500 to-pink-500"
-    },
-    {
-      icon: Users,
-      title: "Concierge",
-      description: "Expert healthcare navigation",
-      color: "from-green-500 to-emerald-500"
-    }
-  ]
 
   const stats = [
     { icon: Users, value: "10K+", label: "Members" },
@@ -309,20 +234,46 @@ export function Hero() {
             </motion.div>
           </motion.div>
 
-          {/* Right Column - Service Cards */}
+          {/* Right Column - App Mockup */}
           <div className="lg:col-span-5">
-            <div className="grid gap-4">
-              {services.map((service, i) => (
-                <InteractiveServiceCard
-                  key={i}
-                  icon={service.icon}
-                  title={service.title}
-                  description={service.description}
-                  color={service.color}
-                  delay={i * 0.2}
-                />
-              ))}
-            </div>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, x: 50 }}
+              animate={{ opacity: 1, scale: 1, x: 0 }}
+              transition={{
+                duration: 0.8,
+                delay: 1.2,
+                type: "spring",
+                stiffness: 100
+              }}
+              className="relative"
+            >
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl">
+                <motion.div
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.3 }}
+                  className="relative aspect-[9/16] max-w-sm mx-auto"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-brand-500/20 to-accent-500/20 rounded-3xl" />
+                  <img
+                    src="https://images.pexels.com/photos/3912979/pexels-photo-3912979.jpeg?auto=compress&cs=tinysrgb&w=800"
+                    alt="MPB Health App Interface"
+                    className="w-full h-full object-cover rounded-3xl"
+                  />
+                  <div className="absolute inset-0 border-8 border-slate-900 rounded-3xl pointer-events-none" />
+                  <motion.div
+                    animate={{
+                      boxShadow: [
+                        '0 0 0 0 rgba(59, 130, 246, 0)',
+                        '0 0 0 20px rgba(59, 130, 246, 0.1)',
+                        '0 0 0 0 rgba(59, 130, 246, 0)'
+                      ]
+                    }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                    className="absolute inset-0 rounded-3xl"
+                  />
+                </motion.div>
+              </div>
+            </motion.div>
           </div>
         </div>
       </div>
